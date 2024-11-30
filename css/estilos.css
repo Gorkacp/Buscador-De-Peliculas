@@ -1,6 +1,6 @@
 /* Estilo global para la página */
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif; /* Aplicando la tipografía Poppins */
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
@@ -33,9 +33,9 @@ h2 {
   width: 100%;
   height: auto;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: cover;  /* Asegura que la imagen se recorte bien */
   object-position: center;
-  max-height: 300px;
+  max-height: 300px;  /* Limita la altura máxima */
 }
 
 /* Modal */
@@ -129,14 +129,14 @@ h2 {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 3rem;
-  color: red;
+  font-size: 3rem; /* Aumenta aún más el tamaño de la X */
+  color: red; /* Cambia el color a rojo */
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease; /* Efecto de transición para el color */
 }
 
 #closeModal:hover {
-  color: #e74c3c;
+  color: #e74c3c; /* Un tono más oscuro de rojo al pasar el cursor */
 }
 
 /* Contenedor de películas recomendadas y categorías */
@@ -146,10 +146,8 @@ h2 {
 #dramaList,
 #horrorList {
   display: flex;
-  flex-direction: row;
-  overflow-x: auto;  /* Permite el desplazamiento lateral */
-  gap: 10px;  /* Espacio entre las cartas */
-  padding: 20px 0;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 #recommendedList .movie-card,
@@ -160,21 +158,8 @@ h2 {
   width: 180px;
 }
 
-/* Controles de flechas para navegar */
-.arrow {
-  font-size: 2rem;
-  color: #f39c12;
-  cursor: pointer;
-  padding: 10px;
-  user-select: none;
-  transition: color 0.3s ease;
-}
 
-.arrow:hover {
-  color: #e67e22;
-}
 
-/* Barra de búsqueda */
 #searchButton,
 #searchBar {
   padding: 10px;
@@ -204,6 +189,20 @@ h2 {
 #searchButton,
 #searchBar {
   display: inline-block;
+}
+
+/* Modal fondo de pantalla oscuro */
+#movieModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 /* Estilo general para las categorías */
@@ -246,15 +245,5 @@ h2 {
 
   .movie-card {
     width: 150px;
-  }
-
-  /* Ajuste de categorías con desplazamiento en pantallas pequeñas */
-  #recommendedList,
-  #actionList,
-  #comedyList,
-  #dramaList,
-  #horrorList {
-    flex-direction: column;
-    align-items: center;
   }
 }

@@ -85,7 +85,7 @@ function hideCategorySections() {
 
 // Cargar películas recomendadas
 function loadRecommended() {
-  fetchMovies('Marvel', document.getElementById('recommendedList')); 
+  fetchMovies('Marvel', document.getElementById('recommendedList')); // Puedes cambiar el término "Marvel" por cualquier categoría
 }
 
 // Cargar películas por categorías
