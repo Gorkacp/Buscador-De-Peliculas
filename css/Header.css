@@ -1,0 +1,183 @@
+/* Estilo del header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #0a0a0a;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  position: relative; /* Para manejar el menú desplegable */
+}
+
+header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+header .header-left h1 {
+  font-size: 2rem;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+header .header-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+header nav {
+  display: flex;
+  gap: 20px;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+header nav a:hover {
+  color: #f39c12;
+}
+
+header .header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Menú hamburguesa */
+.hamburger {
+  display: none; /* Oculto por defecto */
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  z-index: 10;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: white;
+  transition: all 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Menú desplegable */
+#navMenu {
+  display: flex;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  header .header-left h1 {
+    display: none; /* Oculta "Mi Cine" en móviles */
+  }
+
+  .hamburger {
+    display: flex; /* Muestra el menú hamburguesa */
+  }
+
+  #navMenu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    flex-direction: column;
+    background: #0a0a0a;
+    padding: 20px;
+    gap: 15px;
+    width: 100%;
+    transform: translateY(-100%);
+    visibility: hidden;
+    opacity: 0;
+    z-index: 9;
+  }
+
+  #navMenu.show {
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  header .header-center nav a {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+/* Estilo para el ícono de inicio de sesión */
+#loginIcon {
+  font-size: 2rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#loginIcon:hover {
+  color: #f39c12;
+}
+
+/* Estilo para el menú desplegable */
+.login-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%; /* Asegura que el menú aparezca debajo del ícono */
+  right: 0; /* Alinea el menú a la derecha, dentro de la sección */
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px; /* Opcional: redondear los bordes del menú */
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 1rem;
+}
+
+.dropdown-content a:hover {
+  background-color: #f39c12;
+}
+
+.login-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+  

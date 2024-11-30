@@ -1,0 +1,39 @@
+/* Contenedor para los resultados de búsqueda */
+#results {
+    display: none;
+  }
+  
+  #resultsList {
+    display: grid; /* Usamos grid para un control más preciso de las filas y columnas */
+    grid-template-columns: repeat(5, 1fr); /* 5 columnas de igual tamaño */
+    gap: 30px; /* Espacio entre las imágenes */
+    row-gap: 105px; /* Espacio entre las filas */
+    padding: 20px; /* Un poco más de espacio alrededor del grid */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    max-width: 1300px; /* Limita el ancho del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+  }
+  
+  #resultsList .movie-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Evita que sobresalga contenido de la tarjeta */
+    border-radius: 8px; /* Bordes redondeados opcionales */
+  }
+  
+  /* Las imágenes deben ocupar toda la tarjeta */
+  #resultsList .movie-card img {
+    width: 100%; /* La imagen ocupa todo el ancho disponible */
+    height: 350px; /* Ajusta la altura de la imagen para que no esté demasiado alargada */
+    object-fit: cover; /* Mantiene la imagen proporcional y cubriendo todo el área */
+    object-position: center; /* Centra la imagen dentro del contenedor */
+    border-radius: 8px; /* Bordes redondeados opcionales */
+  }
+  
+  /* Agregar efectos al pasar el mouse sobre la imagen */
+  #resultsList .movie-card:hover img {
+    transform: scale(1.05); /* Agranda ligeramente la imagen */
+    transition: transform 0.3s ease-in-out; /* Suaviza la transición */
+  }
+  

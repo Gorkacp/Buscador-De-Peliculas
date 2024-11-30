@@ -1,0 +1,260 @@
+/* Estilo global para la página */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 20px 0;
+  color: #333;
+}
+
+.movie-card {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.movie-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: center;
+  max-height: 300px;
+}
+
+/* Modal */
+#movieModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#movieModal.hidden {
+  display: none;
+}
+
+#modalDetails {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Detalles de la película en el modal */
+.movie-details {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.movie-poster {
+  max-width: 250px;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+
+.movie-info {
+  max-width: 500px;
+}
+
+.movie-info h3 {
+  font-size: 2rem;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.movie-info p {
+  margin: 5px 0;
+  font-size: 1.1rem;
+}
+
+.movie-info strong {
+  color: #333;
+}
+
+/* Estilo para la calificación con estrellas */
+.movie-rating {
+  margin-top: 10px;
+}
+
+.stars {
+  display: flex;
+}
+
+.star {
+  font-size: 1.5rem;
+  color: #f39c12;
+  margin-right: 5px;
+}
+
+.star.empty {
+  color: #ccc;
+}
+
+.star.full {
+  color: #f39c12;
+}
+
+/* Estilo del botón para cerrar el modal */
+#closeModal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 3rem;
+  color: red;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#closeModal:hover {
+  color: #e74c3c;
+}
+
+/* Contenedor de películas recomendadas y categorías */
+#recommendedList,
+#actionList,
+#comedyList,
+#dramaList,
+#horrorList {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;  /* Permite el desplazamiento lateral */
+  gap: 10px;  /* Espacio entre las cartas */
+  padding: 20px 0;
+}
+
+#recommendedList .movie-card,
+#actionList .movie-card,
+#comedyList .movie-card,
+#dramaList .movie-card,
+#horrorList .movie-card {
+  width: 180px;
+}
+
+/* Controles de flechas para navegar */
+.arrow {
+  font-size: 2rem;
+  color: #f39c12;
+  cursor: pointer;
+  padding: 10px;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.arrow:hover {
+  color: #e67e22;
+}
+
+/* Barra de búsqueda */
+#searchButton,
+#searchBar {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+#searchButton {
+  cursor: pointer;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+}
+
+#searchButton:hover {
+  background-color: #e67e22;
+}
+
+#searchBar {
+  width: 100%;
+  max-width: 400px;
+  margin-right: 10px;
+}
+
+#searchButton,
+#searchBar {
+  display: inline-block;
+}
+
+/* Estilo general para las categorías */
+.category-section {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Responsividad */
+@media screen and (max-width: 768px) {
+  .movie-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .movie-info {
+    text-align: center;
+  }
+
+  .movie-poster {
+    max-width: 200px;
+  }
+
+  .movie-card {
+    width: 150px;
+  }
+
+  /* Ajuste de categorías con desplazamiento en pantallas pequeñas */
+  #recommendedList,
+  #actionList,
+  #comedyList,
+  #dramaList,
+  #horrorList {
+    flex-direction: column;
+    align-items: center;
+  }
+}
