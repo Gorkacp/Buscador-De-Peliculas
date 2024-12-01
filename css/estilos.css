@@ -270,26 +270,49 @@ h2 {
     width: 150px;
   }
 
-  /* Ajuste del tamaño del modal en pantallas móviles */
-  #movieModal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+/* Ajuste del modal para pantallas pequeñas */
+#movieModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Asegura que esté sobre el contenido */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000; /* Asegura que se muestre encima de otros elementos */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+}
 
-  #modalDetails {
-    width: 90%; /* Ajusta el ancho en pantallas más pequeñas */
-    max-width: 400px; /* Limita el tamaño máximo */
-    padding: 15px; /* Reduce el padding */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombras más suaves */
-  }
+#modalDetails {
+  width: 90%; /* Ajusta el ancho en pantallas pequeñas */
+  max-width: 500px; /* Limita el tamaño máximo */
+  padding: 20px;
+  background-color: #fff; /* Fondo blanco para el modal */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
 
-  /* Ajuste del tamaño de la X en pantallas móviles */
+/* Ajuste de la X para que esté siempre visible y centrada dentro del modal */
+#closeModal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2.5rem;
+  cursor: pointer;
+  z-index: 1100; /* Asegura que esté sobre el modal */
+}
+
+
+/* Asegúrate de que el modal y la "X" se mantengan dentro de la vista en pantallas más pequeñas */
+@media (max-width: 768px) {
   #closeModal {
-    font-size: 2.5rem;
-    top: 10px;
-    right: 10px;
+    font-size: 2rem; /* Ajusta el tamaño de la X */
+    top: 5px; /* Ajusta la distancia superior */
+    right: 5px; /* Ajusta la distancia derecha */
   }
+}
+
 
   /* Ajuste de la barra de búsqueda y el botón en pantallas pequeñas */
   #searchButton,

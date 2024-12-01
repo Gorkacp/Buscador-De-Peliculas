@@ -51,6 +51,8 @@ function handleSearch(query) {
     resultsSection.style.display = 'block'; // Mostrar la sección de resultados
     resultsList.innerHTML = ''; // Limpiar resultados anteriores
 
+    // Mostrar GIF de carga
+    toggleLoading(true);
     fetchMovies(query, resultsList, currentPage);
   }
 }
@@ -112,13 +114,16 @@ function fetchMovies(query, container, page = 1) {
         container.innerHTML = `<p>No se encontraron resultados para "${query}".</p>`;
         isLoading = false;
       }
+      // Ocultar GIF de carga
+      toggleLoading(false);
     })
     .catch(error => {
       console.error('Error al cargar películas:', error);
       if (page === 1 && container === document.getElementById('resultsList')) {
         container.innerHTML = `<p>Error al cargar los datos. Por favor, intenta nuevamente.</p>`;
       }
-      isLoading = false;
+      // Ocultar GIF de carga
+      toggleLoading(false);
     });
 }
 
@@ -195,9 +200,16 @@ function loadMoreMovies() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !isLoading) {
     isLoading = true;
     currentPage++;
-    fetchMovies(currentQuery || 'Marvel', document.getElementById('resultsList'), currentPage);
+    if (currentQuery) {
+      fetchMovies(currentQuery, document.getElementById('resultsList'), currentPage);
+    } else {
+      fetchMovies('Marvel', document.getElementById('recommendedList'), currentPage); // O cualquier otra categoría
+    }
   }
 }
 
-
-
+// Mostrar u ocultar el GIF de carga
+function toggleLoading(show) {
+  const loadingContainer = document.getElementById('loadingContainer');
+  loadingContainer.style.display = show ? 'block' : 'none';
+}

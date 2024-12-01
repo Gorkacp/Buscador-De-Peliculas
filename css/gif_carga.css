@@ -1,2 +1,21 @@
-
+#loadingContainer {
+    position: fixed;  /* Fija el contenedor */
+    top: 50%;         /* Centrado vertical */
+    left: 50%;        /* Centrado horizontal */
+    transform: translate(-50%, -50%); /* Ajusta para centrar */
+    z-index: 9999;    /* Asegura que se muestre encima de otros contenidos */
+  }
+  
+  #loadingGif {
+    width: 160px;  /* Ajusta el tamaño del GIF */
+    height: auto;
+  }
+  
+  /* Ajustes para dispositivos móviles */
+  @media (max-width: 768px) {
+    #loadingGif {
+      width: 100px;  /* Ajusta el tamaño del GIF en pantallas pequeñas */
+    }
+  }
+  
   

@@ -14,21 +14,28 @@
   margin: 0 auto; /* Centra el contenedor horizontalmente */
 }
 
-#resultsList .movie-card {
+/* Ajustes para los posters de resultados */
+#searchResults .movie-card {
+  width: 180px;  /* El mismo ancho que las categorías */
+  margin: 10px;  /* Espaciado similar al de las categorías */
+  padding: 10px;  /* Relleno similar al de las categorías */
+  border-radius: 10px;
+  background-color: #fff;
+  transition: transform 0.2s ease;
+  cursor: pointer;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* Evita que sobresalga contenido de la tarjeta */
-  border-radius: 8px; /* Bordes redondeados opcionales */
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-/* Las imágenes deben ocupar toda la tarjeta */
-#resultsList .movie-card img {
-  width: 100%; /* La imagen ocupa todo el ancho disponible */
-  height: 350px; /* Ajusta la altura de la imagen para que no esté demasiado alargada */
-  object-fit: cover; /* Mantiene la imagen proporcional y cubriendo todo el área */
-  object-position: center; /* Centra la imagen dentro del contenedor */
-  border-radius: 8px; /* Bordes redondeados opcionales */
+/* Asegura que las imágenes en los resultados sean consistentes con las categorías */
+#searchResults .movie-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: center;
+  max-height: 300px;  /* Limita la altura máxima, igual que en las categorías */
 }
 
 /* Agregar efectos al pasar el mouse sobre la imagen */
@@ -37,7 +44,7 @@
   transition: transform 0.3s ease-in-out; /* Suaviza la transición */
 }
 
-/* Ajuste para pantallas pequeñas (móviles) */
+/* Ajustes para pantallas pequeñas (móviles) */
 @media (max-width: 1200px) {
   #resultsList {
     grid-template-columns: repeat(4, 1fr); /* Reducir a 4 columnas en pantallas medianas */
@@ -52,7 +59,8 @@
 
 @media (max-width: 600px) {
   #resultsList {
-    grid-template-columns: repeat(2, 1fr); /* Reducir a 2 columnas en dispositivos móviles */
+    grid-template-columns: repeat(2, 1fr); /* Una sola columna en dispositivos móviles */
+    gap: 20px; /* Reducir el espacio entre las imágenes */
   }
 }
 
@@ -61,5 +69,6 @@
     grid-template-columns: 1fr; /* Una sola columna en pantallas muy pequeñas */
   }
 }
+
 
   
