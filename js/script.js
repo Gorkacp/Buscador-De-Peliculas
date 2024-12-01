@@ -13,16 +13,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const searchButton = document.getElementById('searchButton');
   const searchBar = document.getElementById('searchBar');
+  const navInicio = document.querySelector('nav a[href="#inicio"]'); // Enlace "Inicio"
 
   searchButton.addEventListener('click', () => handleSearch(searchBar.value.trim()));
 
   searchBar.addEventListener('input', () => {
     const query = searchBar.value.trim();
     if (query.length >= 1) {
-      handleSearch(query);  // Activar búsqueda con 1 letra
+      handleSearch(query); // Activar búsqueda con 1 letra
     } else {
-      resetSearch();  // Restablecer la vista cuando el campo de búsqueda está vacío
+      resetSearch(); // Restablecer la vista cuando el campo de búsqueda está vacío
     }
+  });
+
+  // Evento para el enlace "Inicio"
+  navInicio.addEventListener('click', (e) => {
+    e.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+    resetSearch(); // Restablecer la vista inicial
+    window.scrollTo(0, 0); // Volver al inicio de la página
   });
 
   // Activar scroll infinito para cargar más películas
@@ -36,29 +44,27 @@ function handleSearch(query) {
     currentPage = 1;
     isLoading = false;
 
-    // Ocultar todas las secciones de categorías y mostrar solo resultados
     hideCategorySections();
 
-    // Mostrar resultados sin eliminar categorías
     const resultsSection = document.getElementById('resultsSection');
     const resultsList = document.getElementById('resultsList');
     resultsSection.style.display = 'block'; // Mostrar la sección de resultados
     resultsList.innerHTML = ''; // Limpiar resultados anteriores
 
-    // Cargar primeros resultados de la búsqueda
     fetchMovies(query, resultsList, currentPage);
   }
 }
 
-// Restablecer vista cuando no haya texto en la barra de búsqueda
+// Restablecer vista cuando no haya texto en la barra de búsqueda o al pulsar Inicio
 function resetSearch() {
   const resultsSection = document.getElementById('resultsSection');
   const resultsList = document.getElementById('resultsList');
 
   resultsSection.style.display = 'none'; // Ocultar la sección de resultados
+  resultsList.innerHTML = ''; // Limpiar resultados anteriores
   showCategorySections(); // Mostrar nuevamente todas las categorías
-  currentQuery = '';  // Resetear la búsqueda
-  currentPage = 1;    // Volver a la primera página
+  currentQuery = ''; // Resetear la búsqueda
+  currentPage = 1; // Volver a la primera página
 }
 
 // Mostrar las categorías
@@ -192,3 +198,6 @@ function loadMoreMovies() {
     fetchMovies(currentQuery || 'Marvel', document.getElementById('resultsList'), currentPage);
   }
 }
+
+
+

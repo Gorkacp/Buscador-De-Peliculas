@@ -50,6 +50,7 @@ h2 {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeInModal 0.5s ease-out; /* Animación de apertura */
 }
 
 #movieModal.hidden {
@@ -66,6 +67,28 @@ h2 {
   flex-direction: row;
   justify-content: space-between;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Asegura que el botón de cerrar esté dentro del modal */
+  animation: slideIn 0.5s ease-out; /* Animación del modal */
+}
+
+/* Animación para la apertura del modal */
+@keyframes fadeInModal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Animación de deslizamiento del modal */
+@keyframes slideIn {
+  0% {
+    transform: translateY(-50px); /* Desliza el modal desde arriba */
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 /* Detalles de la película en el modal */
@@ -124,15 +147,16 @@ h2 {
   color: #f39c12;
 }
 
-/* Estilo del botón para cerrar el modal */
+/* Estilo del botón para cerrar el modal dentro del modal */
 #closeModal {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 3rem; /* Aumenta aún más el tamaño de la X */
-  color: red; /* Cambia el color a rojo */
+  font-size: 3rem; 
+  color: red; 
   cursor: pointer;
   transition: color 0.3s ease; /* Efecto de transición para el color */
+  z-index: 1100; /* Asegura que la X esté encima de todo */
 }
 
 #closeModal:hover {
@@ -157,8 +181,6 @@ h2 {
 #horrorList .movie-card {
   width: 180px;
 }
-
-
 
 #searchButton,
 #searchBar {
@@ -245,5 +267,26 @@ h2 {
 
   .movie-card {
     width: 150px;
+  }
+
+  /* Ajuste del tamaño del modal en pantallas móviles */
+  #movieModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #modalDetails {
+    width: 90%; /* Ajusta el ancho en pantallas más pequeñas */
+    max-width: 400px; /* Limita el tamaño máximo */
+    padding: 15px; /* Reduce el padding */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombras más suaves */
+  }
+
+  /* Ajuste del tamaño de la X en pantallas móviles */
+  #closeModal {
+    font-size: 2.5rem;
+    top: 10px;
+    right: 10px;
   }
 }
