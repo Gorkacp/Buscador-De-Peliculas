@@ -43,6 +43,17 @@ header nav a:hover {
   color: #f39c12;
 }
 
+/* Nueva opción en el header */
+header nav a#createInforme {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+header nav a#createInforme:hover {
+  color: #f39c12;
+}
+
 header .header-right {
   display: flex;
   align-items: center;
@@ -169,15 +180,3 @@ header .header-right {
 .login-dropdown:hover .dropdown-content {
   display: block;
 }
-
-
-
-
-
-
-
-
-
-
-
-  

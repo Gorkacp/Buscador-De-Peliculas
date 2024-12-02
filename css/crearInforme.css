@@ -1,0 +1,271 @@
+/* Estilo general para el contenedor de búsqueda */
+.search-container {
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    margin: 30px auto;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    max-width: 700px;
+    width: 100%;
+}
+
+.search-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #34495e;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 600;
+}
+
+.search-container input[type="text"] {
+    width: 85%;
+    padding: 12px;
+    font-size: 1.1em;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.search-container input[type="text"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+}
+
+#loading {
+    display: none;
+    margin-top: 15px;
+}
+
+#loading img {
+    width: 35px;
+}
+
+/* Estilos para la lista de películas */
+.movie-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.movie-card {
+    background-color: #fff;
+    border-radius: 12px;
+    width: 220px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: transform 0.3s ease;
+}
+
+.movie-card img:hover {
+    transform: scale(1.1);
+}
+
+.movie-card h4 {
+    font-size: 1.1em;
+    color: #34495e;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+}
+
+.movie-card p {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin: 8px 0;
+}
+
+/* Estilos para el contenedor de filtros */
+.filter-container {
+    padding: 25px;
+    background-color: #ecf0f1;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 50px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.filter-container h3 {
+    font-size: 1.6em;
+    color: #34495e;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.filter-container button {
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 8px;
+}
+
+.filter-container button:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px);
+}
+
+.filter-container button:active {
+    transform: translateY(2px);
+}
+
+/* Estilos para el informe */
+#report {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#report h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #34495e;
+    font-weight: 600;
+}
+
+/* Estilo del gráfico - presentación profesional */
+#chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    height: 220px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    background-color: #f7f7f7;
+}
+
+#chart {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* Mejoras para las tarjetas de películas */
+.movie-item {
+    border-radius: 12px;
+    overflow: hidden;
+    width: 240px;
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.movie-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.movie-item img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+.movie-item h3 {
+    font-size: 1.1em;
+    color: #333;
+    padding: 12px 0;
+    font-weight: 600;
+}
+
+.movie-item p {
+    font-size: 0.95em;
+    color: #7f8c8d;
+    padding: 0 12px;
+}
+
+/* Estilos adicionales */
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+h2, h3 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button:focus, input:focus {
+    outline: none;
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    .search-container {
+        padding: 20px;
+        max-width: 90%;
+    }
+    .movie-card, .movie-item {
+        width: 180px;
+        padding: 10px;
+    }
+    #chart-container {
+        max-width: 90%;
+        height: 180px;
+    }
+    #report h2 {
+        font-size: 2em; /* Ajustar tamaño del título */
+    }
+}
+
+@media (max-width: 480px) {
+    .search-container {
+        padding: 15px;
+        max-width: 95%;
+    }
+    .movie-card, .movie-item {
+        width: 150px;
+        padding: 8px;
+    }
+    #chart-container {
+        max-width: 95%;
+        height: 160px;
+    }
+    #report h2 {
+        font-size: 1.8em; /* Ajustar aún más el tamaño */
+    }
+    .filter-container h3 {
+        font-size: 1.4em; /* Ajustar tamaño del título de los filtros */
+    }
+}
