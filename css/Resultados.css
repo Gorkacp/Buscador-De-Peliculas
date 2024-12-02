@@ -1,7 +1,12 @@
+/* Solución global para evitar desplazamiento horizontal */
+body {
+  margin: 0; /* Elimina cualquier margen predeterminado */
+  overflow-x: hidden; /* Deshabilita el desplazamiento horizontal */
+}
+
 /* Contenedor para los resultados de búsqueda */
 #results {
   display: none; /* Inicialmente oculto */
-  overflow-x: hidden; /* Evita desbordamiento horizontal */
 }
 
 #resultsList {
@@ -10,17 +15,17 @@
   gap: 30px; /* Espacio entre las imágenes */
   row-gap: 105px; /* Espacio entre las filas */
   padding: 20px; /* Un poco más de espacio alrededor del grid */
-  width: calc(100% - 40px); /* Considera el padding horizontal para evitar desbordamiento */
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
   max-width: 1300px; /* Limita el ancho del contenedor */
   margin: 0 auto; /* Centra el contenedor horizontalmente */
-  box-sizing: border-box; /* Garantiza que el padding se incluya en el ancho total */
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
 }
 
 /* Ajustes para los posters de resultados */
 #searchResults .movie-card {
-  width: 180px; /* El mismo ancho que las categorías */
-  margin: 10px; /* Espaciado similar al de las categorías */
-  padding: 10px; /* Relleno similar al de las categorías */
+  width: 180px;  /* El mismo ancho que las categorías */
+  margin: 10px;  /* Espaciado similar al de las categorías */
+  padding: 10px;  /* Relleno similar al de las categorías */
   border-radius: 10px;
   background-color: #fff;
   transition: transform 0.2s ease;
@@ -37,7 +42,7 @@
   border-radius: 8px;
   object-fit: cover;
   object-position: center;
-  max-height: 300px; /* Limita la altura máxima, igual que en las categorías */
+  max-height: 300px;  /* Limita la altura máxima, igual que en las categorías */
 }
 
 /* Agregar efectos al pasar el mouse sobre la imagen */
@@ -46,14 +51,13 @@
   transition: transform 0.3s ease-in-out; /* Suaviza la transición */
 }
 
-/* Ajustes para pantallas medianas */
+/* Ajustes para pantallas pequeñas (móviles) */
 @media (max-width: 1200px) {
   #resultsList {
     grid-template-columns: repeat(4, 1fr); /* Reducir a 4 columnas en pantallas medianas */
   }
 }
 
-/* Ajustes para pantallas pequeñas */
 @media (max-width: 900px) {
   #resultsList {
     grid-template-columns: repeat(3, 1fr); /* Reducir a 3 columnas en pantallas pequeñas */
@@ -62,91 +66,13 @@
 
 @media (max-width: 600px) {
   #resultsList {
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas en dispositivos móviles */
+    grid-template-columns: repeat(2, 1fr); /* Una sola columna en dispositivos móviles */
     gap: 20px; /* Reducir el espacio entre las imágenes */
   }
 }
 
-/* Ajustes para pantallas muy pequeñas */
 @media (max-width: 400px) {
   #resultsList {
     grid-template-columns: 1fr; /* Una sola columna en pantallas muy pequeñas */
-    padding: 10px; /* Ajustar padding en pantallas muy pequeñas */
-  }
-}
-/* Contenedor para los resultados de búsqueda */
-#results {
-  display: none; /* Inicialmente oculto */
-  overflow-x: hidden; /* Evita desbordamiento horizontal */
-}
-
-#resultsList {
-  display: grid; /* Usamos grid para un control más preciso de las filas y columnas */
-  grid-template-columns: repeat(5, 1fr); /* 5 columnas de igual tamaño */
-  gap: 30px; /* Espacio entre las imágenes */
-  row-gap: 105px; /* Espacio entre las filas */
-  padding: 20px; /* Un poco más de espacio alrededor del grid */
-  width: calc(100% - 40px); /* Considera el padding horizontal para evitar desbordamiento */
-  max-width: 1300px; /* Limita el ancho del contenedor */
-  margin: 0 auto; /* Centra el contenedor horizontalmente */
-  box-sizing: border-box; /* Garantiza que el padding se incluya en el ancho total */
-}
-
-/* Ajustes para los posters de resultados */
-#searchResults .movie-card {
-  width: 180px; /* El mismo ancho que las categorías */
-  margin: 10px; /* Espaciado similar al de las categorías */
-  padding: 10px; /* Relleno similar al de las categorías */
-  border-radius: 10px;
-  background-color: #fff;
-  transition: transform 0.2s ease;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-/* Asegura que las imágenes en los resultados sean consistentes con las categorías */
-#searchResults .movie-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
-  object-position: center;
-  max-height: 300px; /* Limita la altura máxima, igual que en las categorías */
-}
-
-/* Agregar efectos al pasar el mouse sobre la imagen */
-#resultsList .movie-card:hover img {
-  transform: scale(1.05); /* Agranda ligeramente la imagen */
-  transition: transform 0.3s ease-in-out; /* Suaviza la transición */
-}
-
-/* Ajustes para pantallas medianas */
-@media (max-width: 1200px) {
-  #resultsList {
-    grid-template-columns: repeat(4, 1fr); /* Reducir a 4 columnas en pantallas medianas */
-  }
-}
-
-/* Ajustes para pantallas pequeñas */
-@media (max-width: 900px) {
-  #resultsList {
-    grid-template-columns: repeat(3, 1fr); /* Reducir a 3 columnas en pantallas pequeñas */
-  }
-}
-
-@media (max-width: 600px) {
-  #resultsList {
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas en dispositivos móviles */
-    gap: 20px; /* Reducir el espacio entre las imágenes */
-  }
-}
-
-/* Ajustes para pantallas muy pequeñas */
-@media (max-width: 400px) {
-  #resultsList {
-    grid-template-columns: 1fr; /* Una sola columna en pantallas muy pequeñas */
-    padding: 10px; /* Ajustar padding en pantallas muy pequeñas */
   }
 }
