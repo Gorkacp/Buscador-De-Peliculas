@@ -1,5 +1,6 @@
 const API_URL = "https://www.omdbapi.com/?apikey=5d6cf565";
 let debounceTimer;
+let chartInstance; // Variable para almacenar la instancia del gráfico
 
 // Mostrar u ocultar el indicador de carga
 function toggleLoading(show) {
@@ -15,6 +16,11 @@ function searchMovies() {
     if (query.length === 0) {
         document.getElementById("movieList").innerHTML = "";
         return;
+    }
+
+    // Limpiar el gráfico antes de realizar la búsqueda
+    if (chartInstance) {
+        chartInstance.destroy(); // Destruir el gráfico anterior
     }
 
     // Evita enviar demasiadas solicitudes con un temporizador (debounce)
@@ -95,20 +101,29 @@ function generateReport(type) {
     });
 }
 
-// Renderizar el gráfico
+// Renderizar el gráfico (gráfico de líneas)
 function renderChart(data, labels, type) {
     const ctx = document.getElementById("chart").getContext("2d");
-    new Chart(ctx, {
-        type: "bar",
+
+    // Si ya hay un gráfico, destrúyelo antes de crear uno nuevo
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+
+    // Crear un nuevo gráfico
+    chartInstance = new Chart(ctx, {
+        type: "line", // Cambiar a gráfico de líneas
         data: {
             labels: labels,
             datasets: [
                 {
                     label: type === "imdbRating" ? "Valoración IMDB" : "Votos IMDB",
                     data: data,
-                    backgroundColor: "rgba(54, 162, 235, 0.6)",
-                    borderColor: "rgba(54, 162, 235, 1)",
-                    borderWidth: 1,
+                    backgroundColor: "rgba(54, 162, 235, 0.2)", // Color de fondo del área
+                    borderColor: "rgba(54, 162, 235, 1)", // Color de la línea
+                    borderWidth: 2,
+                    fill: true, // Hacer que el gráfico tenga un fondo de color
+                    tension: 0.4, // Curvatura de la línea
                 },
             ],
         },
@@ -117,8 +132,27 @@ function renderChart(data, labels, type) {
             scales: {
                 y: {
                     beginAtZero: true,
+                    ticks: {
+                        stepSize: 1, // Controlar la escala de los valores en el eje Y
+                    },
                 },
             },
         },
     });
 }
+
+// Función para manejar clic en el botón "Películas más votadas"
+document.getElementById("mostVotedButton").addEventListener("click", () => {
+    if (chartInstance) {
+        chartInstance.destroy(); // Destruir el gráfico antes de generar uno nuevo
+    }
+    generateReport("imdbVotes"); // Generar el informe con base en votos
+});
+
+// Función para manejar clic en el botón "Películas más valoradas"
+document.getElementById("mostRatedButton").addEventListener("click", () => {
+    if (chartInstance) {
+        chartInstance.destroy(); // Destruir el gráfico antes de generar uno nuevo
+    }
+    generateReport("imdbRating"); // Generar el informe con base en la valoración IMDB
+});
