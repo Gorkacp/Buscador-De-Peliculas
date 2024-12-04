@@ -3,100 +3,97 @@ const API_URL = `https://www.omdbapi.com/?apikey=${API_KEY}`;
 let currentPage = 1;
 let currentQuery = '';
 let isLoading = false;
+let moviesData = []; // Array para almacenar las películas cargadas
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadRecommended(); // Películas recomendadas al inicio
-  loadCategory('Action', 'actionList'); // Cargar películas por categorías
-  loadCategory('Comedy', 'comedyList');
-  loadCategory('Drama', 'dramaList');
-  loadCategory('Horror', 'horrorList');
+  // Cargar contenido inicial
+  loadRecommended();
+  ['Action', 'Comedy', 'Drama', 'Horror'].forEach(category => loadCategory(category, `${category.toLowerCase()}List`));
 
+  // Eventos para búsqueda y navegación
   const searchButton = document.getElementById('searchButton');
   const searchBar = document.getElementById('searchBar');
-  const navInicio = document.querySelector('nav a[href="#inicio"]'); // Enlace "Inicio"
+  const navInicio = document.querySelector('nav a[href="#inicio"]');
 
   searchButton.addEventListener('click', () => handleSearch(searchBar.value.trim()));
-
-  searchBar.addEventListener('input', () => {
-    const query = searchBar.value.trim();
-    if (query.length >= 1) {
-      handleSearch(query); // Activar búsqueda con 1 letra
-    } else {
-      resetSearch(); // Restablecer la vista cuando el campo de búsqueda está vacío
-    }
-  });
-
-  // Evento para el enlace "Inicio"
+  searchBar.addEventListener('input', () => handleSearch(searchBar.value.trim()));
   navInicio.addEventListener('click', (e) => {
-    e.preventDefault(); // Evitar el comportamiento predeterminado del enlace
-    resetSearch(); // Restablecer la vista inicial
-    window.scrollTo(0, 0); // Volver al inicio de la página
+    e.preventDefault();
+    resetSearch();
+    window.scrollTo(0, 0);
   });
 
-  // Activar scroll infinito para cargar más películas
+  // Scroll infinito
   window.addEventListener('scroll', loadMoreMovies);
+
+  // Botones para generar gráficos
+  document.getElementById('mostRatedButton').addEventListener('click', () => {
+    resetChart(); // Destruir gráfico anterior
+    generateReport('imdbRating'); // Generar el informe con base en la valoración IMDB
+  });
+
+  document.getElementById('mostVotedButton').addEventListener('click', () => {
+    resetChart(); // Destruir gráfico anterior
+    generateReport('imdbVotes'); // Generar el informe con base en votos
+  });
 });
 
 // Manejar la búsqueda
 function handleSearch(query) {
-  if (query.length > 0) {
-    currentQuery = query;
-    currentPage = 1;
-    isLoading = false;
-
-    hideCategorySections();
-
-    const resultsSection = document.getElementById('resultsSection');
-    const resultsList = document.getElementById('resultsList');
-    resultsSection.style.display = 'block'; // Mostrar la sección de resultados
-    resultsList.innerHTML = ''; // Limpiar resultados anteriores
-
-    // Mostrar GIF de carga
-    toggleLoading(true);
-    fetchMovies(query, resultsList, currentPage);
+  if (query.length === 0) {
+    resetSearch();
+    return;
   }
+  currentQuery = query;
+  currentPage = 1;
+  isLoading = false;
+  moviesData = []; // Limpiar los datos de películas al hacer una nueva búsqueda
+
+  hideCategorySections();
+
+  const resultsSection = document.getElementById('resultsSection');
+  const resultsList = document.getElementById('resultsList');
+  resultsSection.style.display = 'block';
+  resultsList.innerHTML = ''; // Limpiar la lista de resultados
+
+  toggleLoading(true);
+  fetchMovies(query, resultsList, currentPage);
 }
 
-// Restablecer vista cuando no haya texto en la barra de búsqueda o al pulsar Inicio
+// Resetear la vista
 function resetSearch() {
   const resultsSection = document.getElementById('resultsSection');
   const resultsList = document.getElementById('resultsList');
+  resultsSection.style.display = 'none';
+  resultsList.innerHTML = '';
+  showCategorySections();
+  currentQuery = '';
+  currentPage = 1;
 
-  resultsSection.style.display = 'none'; // Ocultar la sección de resultados
-  resultsList.innerHTML = ''; // Limpiar resultados anteriores
-  showCategorySections(); // Mostrar nuevamente todas las categorías
-  currentQuery = ''; // Resetear la búsqueda
-  currentPage = 1; // Volver a la primera página
+  // Limpiar los datos de películas anteriores
+  moviesData = [];
+  resetChart(); // Limpiar el gráfico cuando se resetee la búsqueda
 }
 
-// Mostrar las categorías
+// Mostrar y ocultar categorías
 function showCategorySections() {
-  const categories = ['recommendedSection', 'actionSection', 'comedySection', 'dramaSection', 'horrorSection'];
-  categories.forEach(category => {
-    const categorySection = document.getElementById(category);
-    if (categorySection) {
-      categorySection.style.display = 'block'; // Mostrar cada categoría
-    }
+  ['recommendedSection', 'actionSection', 'comedySection', 'dramaSection', 'horrorSection'].forEach(category => {
+    document.getElementById(category).style.display = 'block';
   });
 }
 
-// Ocultar las secciones de categorías
 function hideCategorySections() {
-  const categories = ['recommendedSection', 'actionSection', 'comedySection', 'dramaSection', 'horrorSection'];
-  categories.forEach(category => {
-    const categorySection = document.getElementById(category);
-    if (categorySection) {
-      categorySection.style.display = 'none'; // Ocultar cada categoría
-    }
+  ['recommendedSection', 'actionSection', 'comedySection', 'dramaSection', 'horrorSection'].forEach(category => {
+    document.getElementById(category).style.display = 'none';
   });
 }
 
 // Cargar películas recomendadas
 function loadRecommended() {
-  fetchMovies('Marvel', document.getElementById('recommendedList')); // Puedes cambiar el término "Marvel" por cualquier categoría
+  fetchMovies('Marvel', document.getElementById('recommendedList'));
 }
 
-// Cargar películas por categorías
+// Cargar películas por categoría
 function loadCategory(keyword, containerId) {
   fetchMovies(keyword, document.getElementById(containerId));
 }
@@ -109,20 +106,17 @@ function fetchMovies(query, container, page = 1) {
     .then(data => {
       if (data.Response === 'True') {
         container.innerHTML += data.Search.map(movie => createMovieCard(movie)).join('');
+        moviesData.push(...data.Search);
         isLoading = false;
       } else if (page === 1 && container === document.getElementById('resultsList')) {
         container.innerHTML = `<p>No se encontraron resultados para "${query}".</p>`;
-        isLoading = false;
       }
-      // Ocultar GIF de carga
       toggleLoading(false);
     })
-    .catch(error => {
-      console.error('Error al cargar películas:', error);
+    .catch(() => {
       if (page === 1 && container === document.getElementById('resultsList')) {
-        container.innerHTML = `<p>Error al cargar los datos. Por favor, intenta nuevamente.</p>`;
+        container.innerHTML = `<p>Error al cargar los datos.</p>`;
       }
-      // Ocultar GIF de carga
       toggleLoading(false);
     });
 }
@@ -137,79 +131,106 @@ function createMovieCard(movie) {
   `;
 }
 
-// Mostrar detalles de la película en el modal
+// Mostrar detalles de una película
 function showMovieDetails(imdbID) {
   const modal = document.getElementById('movieModal');
   const modalContent = document.getElementById('modalDetails');
-  
-  // Mostrar modal
   modal.classList.remove('hidden');
-  
-  // Obtener detalles de la película desde la API
+
   fetch(`${API_URL}&i=${imdbID}`)
     .then(response => response.json())
     .then(movie => {
       if (movie.Response === 'True') {
-        const rating = parseFloat(movie.imdbRating);
-        const fullStars = Math.floor(rating / 2);
-        const emptyStars = 5 - fullStars;
-
-        const starElements = [];
-        for (let i = 0; i < fullStars; i++) {
-          starElements.push('<span class="star full">★</span>');
-        }
-        for (let i = 0; i < emptyStars; i++) {
-          starElements.push('<span class="star empty">★</span>');
-        }
-
         modalContent.innerHTML = `
           <div class="movie-details">
-            <img class="movie-poster" src="${movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/150x200?text=No+Image'}" alt="${movie.Title}">
-            <div class="movie-info">
+            <img src="${movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/150x200?text=No+Image'}" alt="${movie.Title}">
+            <div>
               <h3>${movie.Title}</h3>
               <p><strong>Director:</strong> ${movie.Director}</p>
-              <p><strong>Actors:</strong> ${movie.Actors}</p>
-              <p><strong>Genre:</strong> ${movie.Genre}</p>
-              <p><strong>Plot:</strong> ${movie.Plot}</p>
-              <p><strong>Year:</strong> ${movie.Year}</p>
-              <div class="movie-rating">
-                <p><strong>Rating:</strong> ${rating}</p>
-                <div class="stars">${starElements.join('')}</div>
-              </div>
+              <p><strong>Actores:</strong> ${movie.Actors}</p>
+              <p><strong>Genero:</strong> ${movie.Genre}</p>
+              <p><strong>Descripción:</strong> ${movie.Plot}</p>
+              <p><strong>Año:</strong> ${movie.Year}</p>
             </div>
           </div>
         `;
-      } else {
-        modalContent.innerHTML = `<p>No se encontraron detalles para esta película.</p>`;
       }
     })
-    .catch(error => {
-      modalContent.innerHTML = `<p>Error al cargar los detalles de la película.</p>`;
-      console.error(error);
+    .catch(() => {
+      modalContent.innerHTML = `<p>Error al cargar los detalles.</p>`;
     });
 }
 
 // Cerrar el modal
 document.getElementById('closeModal').addEventListener('click', () => {
-  const modal = document.getElementById('movieModal');
-  modal.classList.add('hidden');
+  document.getElementById('movieModal').classList.add('hidden');
 });
 
-// Función que detecta el scroll infinito y carga más películas
+// Scroll infinito
 function loadMoreMovies() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !isLoading) {
     isLoading = true;
     currentPage++;
     if (currentQuery) {
       fetchMovies(currentQuery, document.getElementById('resultsList'), currentPage);
-    } else {
-      fetchMovies('Marvel', document.getElementById('recommendedList'), currentPage); // O cualquier otra categoría
     }
   }
 }
 
-// Mostrar u ocultar el GIF de carga
+// Mostrar/ocultar cargando
 function toggleLoading(show) {
-  const loadingContainer = document.getElementById('loadingContainer');
-  loadingContainer.style.display = show ? 'block' : 'none';
+  document.getElementById('loadingContainer').style.display = show ? 'block' : 'none';
+}
+
+// Generar informes
+function generateReport(type) {
+  const movieData = [];
+  Promise.all(
+    moviesData.map(movie =>
+      fetch(`${API_URL}&i=${movie.imdbID}`)
+        .then(response => response.json())
+        .then(details => {
+          if (details.Response === 'True') {
+            const value = type === 'imdbRating' ? parseFloat(details.imdbRating) : parseInt(details.imdbVotes.replace(/,/g, ''));
+            if (!isNaN(value)) movieData.push({ title: details.Title, value });
+          }
+        })
+    )
+  ).then(() => {
+    const top5 = movieData.sort((a, b) => b.value - a.value).slice(0, 5);
+    renderChart(top5.map(m => m.value), top5.map(m => m.title), type);
+  });
+}
+
+// Renderizar gráfico
+function renderChart(data, labels, type) {
+  const ctx = document.getElementById('chart').getContext('2d');
+  if (window.chartInstance) window.chartInstance.destroy(); // Destruir gráfico anterior
+  window.chartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: type === 'imdbRating' ? 'Rating IMDB' : 'Votes IMDB',
+        data,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+// Resetear el gráfico
+function resetChart() {
+  const ctx = document.getElementById('chart').getContext('2d');
+  if (window.chartInstance) {
+    window.chartInstance.destroy(); // Destruir el gráfico anterior
+  }
 }

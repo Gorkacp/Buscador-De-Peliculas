@@ -13,7 +13,7 @@
 .search-container h2 {
     font-size: 1.8em;
     margin-bottom: 15px;
-    color: #34495e;
+    color: #0a0a0a;
     font-family: 'Helvetica Neue', sans-serif;
     font-weight: 600;
 }
@@ -29,10 +29,7 @@
     outline: none;
 }
 
-.search-container input[type="text"]:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
-}
+
 
 #loading {
     display: none;
@@ -86,7 +83,7 @@
 
 .movie-card h4 {
     font-size: 1.1em;
-    color: #34495e;
+    color: #0a0a0a;
     margin: 0;
     padding: 0;
     font-weight: 600;
@@ -117,7 +114,7 @@
 
 .filter-container button {
     padding: 12px 25px;
-    background-color: #3498db;
+    background-color: #0a0a0a;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -128,7 +125,7 @@
 }
 
 .filter-container button:hover {
-    background-color: #2980b9;
+    background-color: #0a0a0a;
     transform: translateY(-3px);
 }
 
@@ -145,7 +142,7 @@
 #report h2 {
     font-size: 2.5em;
     margin-bottom: 30px;
-    color: #34495e;
+    color: #0a0a0a;
     font-weight: 600;
 }
 
@@ -213,7 +210,7 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    color: #333;
+    color: #0a0a0a;
 }
 
 h2, h3 {

@@ -169,9 +169,10 @@ h2 {
 #comedyList,
 #dramaList,
 #horrorList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); /* 10 portadas por fila */
+  gap: 10px; /* Espacio entre las tarjetas */
+  padding: 0 10px; /* Espacio interior horizontal */
 }
 
 #recommendedList .movie-card,
@@ -179,7 +180,7 @@ h2 {
 #comedyList .movie-card,
 #dramaList .movie-card,
 #horrorList .movie-card {
-  width: 180px;
+  width: 100%; /* Cada tarjeta ocupa el 100% del espacio de su celda */
 }
 
 /* Estilo de la barra de búsqueda y botón */
@@ -214,20 +215,6 @@ h2 {
   display: inline-block;
 }
 
-/* Modal fondo de pantalla oscuro */
-#movieModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
 /* Estilo general para las categorías */
 .category-section {
   margin: 20px 0;
@@ -259,7 +246,6 @@ h2 {
   position: relative;
 }
 
-
 /* Estilo de las flechas */
 .arrow {
   background-color: transparent;
@@ -285,9 +271,6 @@ h2 {
   right: 10px;
 }
 
-
-
-
 /* Responsividad */
 @media screen and (max-width: 768px) {
   .movie-details {
@@ -306,11 +289,6 @@ h2 {
   .movie-card {
     width: 150px;
   }
-
-
-
-
-
 
   /* Ajuste del modal para pantallas pequeñas */
   #movieModal {
@@ -332,25 +310,6 @@ h2 {
     padding: 20px;
     background-color: #fff; /* Fondo blanco para el modal */
     border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Ajuste de la X para que esté siempre visible y centrada dentro del modal */
-  #closeModal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 2.5rem;
-    cursor: pointer;
-    z-index: 1100; /* Asegura que esté sobre el modal */
-  }
-
-  /* Asegúrate de que el modal y la "X" se mantengan dentro de la vista en pantallas más pequeñas */
-  @media (max-width: 768px) {
-    #closeModal {
-      font-size: 2rem; /* Ajusta el tamaño de la X */
-      top: 5px; /* Ajusta la posición superior */
-      right: 5px; /* Ajusta la posición derecha */
-    }
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 }
