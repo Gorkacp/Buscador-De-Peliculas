@@ -1,7 +1,8 @@
-const API_KEY = '5d6cf565'; // Tu clave de API
+const API_KEY = '5d6cf565'; 
 const API_URL = `https://www.omdbapi.com/?apikey=${API_KEY}`;
 let currentPage = 1;
 let currentQuery = '';
+let currentType = 'movie'; // Tipo por defecto es "movie"
 let isLoading = false;
 let moviesData = []; // Array para almacenar las películas cargadas
 
@@ -14,6 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.getElementById('searchButton');
   const searchBar = document.getElementById('searchBar');
   const navInicio = document.querySelector('nav a[href="#inicio"]');
+
+  // Evento para los filtros de tipo de contenido
+  const typeRadios = document.getElementsByName('type');
+  typeRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      currentType = e.target.value; // Actualiza el tipo de contenido según la selección
+    });
+  });
 
   searchButton.addEventListener('click', () => handleSearch(searchBar.value.trim()));
   searchBar.addEventListener('input', () => handleSearch(searchBar.value.trim()));
@@ -57,7 +66,7 @@ function handleSearch(query) {
   resultsList.innerHTML = ''; // Limpiar la lista de resultados
 
   toggleLoading(true);
-  fetchMovies(query, resultsList, currentPage);
+  fetchMovies(query, resultsList, currentPage, currentType); // Modificado para pasar el tipo de contenido
 }
 
 // Resetear la vista
@@ -90,17 +99,17 @@ function hideCategorySections() {
 
 // Cargar películas recomendadas
 function loadRecommended() {
-  fetchMovies('Marvel', document.getElementById('recommendedList'));
+  fetchMovies('Marvel', document.getElementById('recommendedList'), 1, 'movie'); // Solo películas por defecto
 }
 
 // Cargar películas por categoría
 function loadCategory(keyword, containerId) {
-  fetchMovies(keyword, document.getElementById(containerId));
+  fetchMovies(keyword, document.getElementById(containerId), 1, 'movie'); // Solo películas por defecto
 }
 
 // Obtener películas desde la API
-function fetchMovies(query, container, page = 1) {
-  const url = `${API_URL}&s=${encodeURIComponent(query)}&page=${page}`;
+function fetchMovies(query, container, page = 1, type = 'movie') {
+  const url = `${API_URL}&s=${encodeURIComponent(query)}&page=${page}&type=${type}`; // Incluye el tipo en la URL
   fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -172,12 +181,12 @@ function loadMoreMovies() {
     isLoading = true;
     currentPage++;
     if (currentQuery) {
-      fetchMovies(currentQuery, document.getElementById('resultsList'), currentPage);
+      fetchMovies(currentQuery, document.getElementById('resultsList'), currentPage, currentType); // Modificado para pasar el tipo de contenido
     }
   }
 }
 
-// Mostrar/ocultar cargando
+// Mostrar y ocultar cargando
 function toggleLoading(show) {
   document.getElementById('loadingContainer').style.display = show ? 'block' : 'none';
 }
@@ -202,7 +211,7 @@ function generateReport(type) {
   });
 }
 
-// Renderizar gráfico
+// Render gráfico
 function renderChart(data, labels, type) {
   const ctx = document.getElementById('chart').getContext('2d');
   if (window.chartInstance) window.chartInstance.destroy(); // Destruir gráfico anterior
@@ -217,20 +226,12 @@ function renderChart(data, labels, type) {
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1
       }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: true }
-      }
     }
   });
 }
 
-// Resetear el gráfico
+// Resetear gráfico
 function resetChart() {
   const ctx = document.getElementById('chart').getContext('2d');
-  if (window.chartInstance) {
-    window.chartInstance.destroy(); // Destruir el gráfico anterior
-  }
+  if (window.chartInstance) window.chartInstance.destroy();
 }
