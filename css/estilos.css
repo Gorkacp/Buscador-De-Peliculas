@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
+  animation: fadeIn 1s ease-in-out; /* Animación de entrada de la página */
 }
 
 h2 {
@@ -18,15 +19,17 @@ h2 {
   padding: 10px;
   border-radius: 10px;
   background-color: #fff;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transición suave al hacer hover */
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  animation: fadeIn 0.5s ease-in-out; /* Animación de entrada de la tarjeta */
 }
 
 .movie-card:hover {
   transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Efecto de sombra al hacer hover */
 }
 
 .movie-card img {
@@ -50,7 +53,7 @@ h2 {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  animation: fadeInModal 0.5s ease-out; /* Animación de apertura */
+  animation: fadeInModal 0.5s ease-out; /* Animación de apertura del modal */
 }
 
 #movieModal.hidden {
@@ -68,7 +71,7 @@ h2 {
   justify-content: space-between;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   position: relative; /* Asegura que el botón de cerrar esté dentro del modal */
-  animation: slideIn 0.5s ease-out; /* Animación del modal */
+  animation: slideIn 0.5s ease-out; /* Animación de deslizamiento del modal */
 }
 
 /* Animación para la apertura del modal */
@@ -198,6 +201,7 @@ h2 {
   background-color: #f39c12;
   color: white;
   border: none;
+  animation: fadeIn 1s ease-in-out; /* Animación de entrada para el botón */
 }
 
 #searchButton:hover {
@@ -222,6 +226,7 @@ h2 {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out; /* Animación de entrada para las categorías */
 }
 
 /* Animaciones */
@@ -314,16 +319,15 @@ h2 {
   }
 
   #modalDetails {
-    width: 70%; /* Modal más grande en pantallas grandes */
-    max-width: 800px;
+    width: 60%; /* Ajusta el tamaño del modal en pantallas grandes */
+    max-width: 800px; /* Limita el tamaño máximo */
   }
 
-  /* Ajuste de las películas por fila */
   #recommendedList,
   #actionList,
   #comedyList,
   #dramaList,
   #horrorList {
-    grid-template-columns: repeat(5, 1fr); /* 5 películas por fila */
+    grid-template-columns: repeat(5, 1fr); /* 5 portadas por fila en pantallas grandes */
   }
 }
