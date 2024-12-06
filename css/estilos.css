@@ -313,3 +313,28 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 }
+
+@media screen and (min-width: 769px) {
+  /* Ajustes para pantallas grandes */
+  #movieModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000; /* Asegura que se muestre encima de otros elementos */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semi-transparente */
+  }
+
+  #modalDetails {
+    width: 70%; /* Ajuste para pantallas más grandes */
+    max-width: 900px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
