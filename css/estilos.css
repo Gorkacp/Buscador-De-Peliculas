@@ -170,7 +170,7 @@ h2 {
 #dramaList,
 #horrorList {
   display: grid;
-  grid-template-columns: repeat(10, 1fr); /* 10 portadas por fila */
+  grid-template-columns: repeat(5, 1fr); /* 5 portadas por fila en pantallas grandes */
   gap: 10px; /* Espacio entre las tarjetas */
   padding: 0 10px; /* Espacio interior horizontal */
 }
@@ -238,37 +238,12 @@ h2 {
   animation: fadeIn 1s ease-in-out;
 }
 
-/* Contenedor de las películas con flechas de navegación */
+/* Contenedor de las películas sin flechas */
 .movie-row {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-}
-
-/* Estilo de las flechas */
-.arrow {
-  background-color: transparent;
-  border: none;
-  font-size: 2rem;
-  color: #333;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.arrow:hover {
-  color: #f39c12;
-}
-
-/* Flechas de navegación al lado izquierdo y derecho */
-.arrow.prev {
-  position: absolute;
-  left: 10px;
-}
-
-.arrow.next {
-  position: absolute;
-  right: 10px;
 }
 
 /* Responsividad */
@@ -312,6 +287,15 @@ h2 {
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+
+  /* Películas por fila en pantallas pequeñas */
+  #recommendedList,
+  #actionList,
+  #comedyList,
+  #dramaList,
+  #horrorList {
+    grid-template-columns: repeat(2, 1fr); /* 2 portadas por fila en pantallas pequeñas */
+  }
 }
 
 @media screen and (min-width: 769px) {
@@ -330,11 +314,16 @@ h2 {
   }
 
   #modalDetails {
-    width: 70%; /* Ajuste para pantallas más grandes */
-    max-width: 900px;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    width: 70%; /* Modal más grande en pantallas grandes */
+    max-width: 800px;
+  }
+
+  /* Ajuste de las películas por fila */
+  #recommendedList,
+  #actionList,
+  #comedyList,
+  #dramaList,
+  #horrorList {
+    grid-template-columns: repeat(5, 1fr); /* 5 películas por fila */
   }
 }
